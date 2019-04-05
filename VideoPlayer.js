@@ -1318,7 +1318,7 @@ const styles = {
             alignSelf: 'stretch',
             height: 28,
             marginLeft: 20,
-            marginRight: 20
+            marginRight: 20,
             flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row'
         },
         track: {
