@@ -5,6 +5,7 @@ import {
     TouchableHighlight,
     ImageBackground,
     PanResponder,
+    I18nManager,
     StyleSheet,
     Touchable,
     Animated,
@@ -646,7 +647,7 @@ export default class VideoPlayer extends Component {
      * @return {float} volume handle position in px based on volume
      */
     calculateVolumePositionFromVolume() {
-        return this.player.volumeWidth * this.state.volume;
+        return this.player.volumeWidth / this.state.volume;
     }
 
 
@@ -775,7 +776,12 @@ export default class VideoPlayer extends Component {
              */
             onPanResponderMove: ( evt, gestureState ) => {
                 let state = this.state;
-                const position = this.state.volumeOffset + gestureState.dx;
+                let position;
+                if(I18nManager.isRTL){
+                    position = this.state.volumeOffset + (1 - gestureState.dx);
+                }else{
+                    position = this.state.volumeOffset + gestureState.dx;
+                }
 
                 this.setVolumePosition( position );
                 state.volume = this.calculateVolumeFromVolumePosition();
@@ -1191,7 +1197,7 @@ const styles = {
     }),
     controls: StyleSheet.create({
         row: {
-            flexDirection: 'row',
+            flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
             height: null,
@@ -1217,7 +1223,7 @@ const styles = {
             textAlign: 'center',
         },
         pullRight: {
-            flexDirection: 'row',
+            flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row',
             alignItems: 'center',
             justifyContent: 'center',
         },
@@ -1235,7 +1241,7 @@ const styles = {
             alignSelf: 'stretch',
             alignItems: 'center',
             justifyContent: 'space-between',
-            flexDirection: 'row',
+            flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row',
             width: null,
             margin: 12,
             marginBottom: 18,
@@ -1249,10 +1255,10 @@ const styles = {
             marginBottom: 0,
         },
         volume: {
-            flexDirection: 'row',
+            flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row'
         },
         fullscreen: {
-            flexDirection: 'row',
+            flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row'
         },
         playPause: {
             position: 'relative',
@@ -1304,7 +1310,7 @@ const styles = {
             padding: 16,
         },
         icon: {
-            marginLeft:7
+            transform : I18nManager.isRTL ? [{ rotate: '180deg'}] : [{ rotate: '0deg'}]
         }
     }),
     seekbar: StyleSheet.create({
@@ -1313,13 +1319,15 @@ const styles = {
             height: 28,
             marginLeft: 20,
             marginRight: 20
+            flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row'
         },
         track: {
             backgroundColor: '#333',
             height: 1,
             position: 'relative',
             top: 14,
-            width: '100%'
+            width: '100%',
+            flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row'
         },
         fill: {
             backgroundColor: '#FFF',
