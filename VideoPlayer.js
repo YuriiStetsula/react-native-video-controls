@@ -954,7 +954,7 @@ export default class VideoPlayer extends Component {
         const timerControl = this.props.disableTimer ? this.renderNullControl() : this.renderTimer();
         const seekbarControl = this.props.disableSeekbar ? this.renderNullControl() : this.renderSeekbar();
         const playPauseControl = this.props.disablePlayPause ? this.renderNullControl() : this.renderPlayPause();
-
+        
         return(
             <Animated.View style={[
                 styles.controls.bottom,
@@ -972,9 +972,9 @@ export default class VideoPlayer extends Component {
                         styles.controls.row,
                         styles.controls.bottomControlGroup
                     ]}>
-                        { playPauseControl }
+                        { I18nManager.isRTL ? timerControl : playPauseControl }
                         { this.renderTitle() }
-                        { timerControl }
+                        { I18nManager.isRTL ? playPauseControl : timerControl }
 
                     </View>
                 </ImageBackground>
