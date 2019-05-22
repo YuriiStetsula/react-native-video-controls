@@ -21,6 +21,7 @@ export default class VideoPlayer extends Component {
 
     static defaultProps = {
         toggleResizeModeOnFullscreen:   true,
+        showTimeRemaining:              false,
         playInBackground:               false,
         playWhenInactive:               false,
         showOnStart:                    true,
@@ -50,7 +51,7 @@ export default class VideoPlayer extends Component {
             // Controls
 
             isFullscreen: this.props.resizeMode === 'cover' || false,
-            showTimeRemaining: true,
+            showTimeRemaining: this.props.showTimeRemaining,
             volumeTrackWidth: 0,
             lastScreenPress: 0,
             volumeFillWidth: 0,
